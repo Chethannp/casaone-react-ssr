@@ -4,17 +4,45 @@
   "description": "Shopping Cart",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint '**/*.js'",
+    "lint:fix": "prettier-eslint '**/*.js' --write"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "npm run lint:fix",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Chethannp/casaone-react-ssr.git"
   },
-  "keywords": ["react", "react-ssr", "shopping-cart"],
+  "keywords": [
+    "react",
+    "react-ssr",
+    "shopping-cart"
+  ],
   "author": "Chethan N. P",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Chethannp/casaone-react-ssr/issues"
   },
-  "homepage": "https://github.com/Chethannp/casaone-react-ssr#readme"
+  "homepage": "https://github.com/Chethannp/casaone-react-ssr#readme",
+  "devDependencies": {
+    "eslint": "^6.6.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^3.0.9",
+    "lint-staged": "^9.4.2",
+    "prettier-eslint": "^9.0.0"
+  }
 }
