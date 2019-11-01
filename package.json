@@ -1,0 +1,20 @@
+{
+  "name": "casaone-react-ssr",
+  "version": "1.0.0",
+  "description": "Shopping Cart",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Chethannp/casaone-react-ssr.git"
+  },
+  "keywords": ["react", "react-ssr", "shopping-cart"],
+  "author": "Chethan N. P",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Chethannp/casaone-react-ssr/issues"
+  },
+  "homepage": "https://github.com/Chethannp/casaone-react-ssr#readme"
+}
