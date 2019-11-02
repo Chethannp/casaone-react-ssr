@@ -1,9 +1,9 @@
-import Home from "../client/pages/Home/Home";
+import HomePage from "../client/pages/Home/Home";
 
 const routes = [
   {
+    ...HomePage,
     path: "/",
-    component: Home,
     exact: true
   }
 ];

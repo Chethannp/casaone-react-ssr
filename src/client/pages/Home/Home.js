@@ -1,14 +1,38 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { fetchCartDetails } from "../../../actions/cart/cart.actions";
 
-const Home = () => {
+const HomePage = ({ cart }) => {
   return (
     <React.Fragment>
-      <div>Hello</div>
-      <button onClick={() => console.log("client code is working!")}>
-        Click Me
-      </button>
+      {cart.map(item => (
+        <h3 key={item.id}>{item.name}</h3>
+      ))}
     </React.Fragment>
   );
 };
 
-export default Home;
+function mapStateToProps(state) {
+  return {
+    cart: state.cart.list
+  };
+}
+
+function loadData(store) {
+  return store.dispatch(fetchCartDetails());
+}
+
+export default {
+  loadData,
+  component: connect(
+    mapStateToProps,
+    {
+      fetchCartDetails
+    }
+  )(HomePage)
+};
+
+HomePage.propTypes = {
+  cart: PropTypes.array
+};
