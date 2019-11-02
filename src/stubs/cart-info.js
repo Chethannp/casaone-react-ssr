@@ -1,18 +1,25 @@
 module.exports = [
   {
-    id: 1,
-    name: "Mobile"
-  },
-  {
-    id: 2,
-    name: "TV"
-  },
-  {
-    id: 3,
-    name: "VCR"
-  },
-  {
-    id: 4,
-    name: "Radio"
+    billingAddress: {
+      firstname: "Chethan",
+      lastname: "NP",
+      address1: "#143, Telecom Layout",
+      address2: "inidiranagar pipeline",
+      state: "Karnataka",
+      zipcode: "560023",
+      country: "India",
+      date: "2019-02-27"
+    },
+    shippingAddress: {
+      firstname: "Chethan",
+      lastname: "NP",
+      address1: "#143, Telecom Layout",
+      address2: "inidiranagar pipeline",
+      state: "Karnataka",
+      zipcode: "560023",
+      country: "India",
+      date: "2019-03-08"
+    },
+    products: [{}, {}]
   }
 ];

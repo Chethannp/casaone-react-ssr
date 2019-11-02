@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { fetchCartDetails } from "../../../actions/cart/cart.actions";
+import {
+  fetchCartDetails,
+  initializeValidation
+} from "../../../actions/cart/cart.actions";
 
-const HomePage = ({ cart }) => {
+import { Container, FlexBox } from "../../../styledComponents/layout";
+
+import BillingDetails from "../Billing";
+import ShippingDetails from "../Shipping";
+
+const HomePage = ({ initializeValidation }) => {
+  const handleSave = () => {
+    initializeValidation();
+  };
+
   return (
-    <React.Fragment>
-      {cart.map(item => (
-        <h3 key={item.id}>{item.name}</h3>
-      ))}
-    </React.Fragment>
+    <Container>
+      <FlexBox bg="white" mar20 boxShadow="lightGrey" borderRadius>
+        <BillingDetails />
+        <ShippingDetails />
+        <button onClick={handleSave}>Save</button>
+      </FlexBox>
+    </Container>
   );
 };
 
@@ -28,7 +42,8 @@ export default {
   component: connect(
     mapStateToProps,
     {
-      fetchCartDetails
+      fetchCartDetails,
+      initializeValidation
     }
   )(HomePage)
 };
