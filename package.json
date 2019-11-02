@@ -67,6 +67,7 @@
   "dependencies": {
     "express": "^4.17.1",
     "react": "^16.11.0",
-    "react-dom": "^16.11.0"
+    "react-dom": "^16.11.0",
+    "react-router-dom": "^5.1.2"
   }
 }

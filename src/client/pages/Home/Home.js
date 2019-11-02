@@ -1,4 +1,3 @@
-require("../assets/favicon.ico");
 import React from "react";
 
 const Home = () => {
