@@ -29,9 +29,8 @@ export default function validate(values) {
       errors.address2 = "Address line 2 is required";
       break;
 
-    case values.state != undefined &&
-      (values.state || values.state.length == 0):
-      errors.state = "State is required";
+    case values.city != undefined && (values.city || values.city.length == 0):
+      errors.city = "City is required";
       break;
 
     case values.zipcode != undefined &&
@@ -41,6 +40,11 @@ export default function validate(values) {
 
     case values.zipcode != undefined && isNaN(values.zipcode):
       errors.zipcode = "In digits please!";
+      break;
+
+    case values.state != undefined &&
+      (values.state || values.state.length == 0):
+      errors.state = "State is required";
       break;
 
     case values.country != undefined &&

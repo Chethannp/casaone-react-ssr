@@ -5,8 +5,9 @@ module.exports = [
       lastname: "NP",
       address1: "#143, Telecom Layout",
       address2: "inidiranagar pipeline",
-      state: "Karnataka",
+      city: "Bangalore",
       zipcode: "560023",
+      state: "Karnataka",
       country: "India",
       date: "2019-03-08"
     },
@@ -15,8 +16,9 @@ module.exports = [
       lastname: "NP",
       address1: "#143, Telecom Layout",
       address2: "inidiranagar pipeline",
-      state: "Karnataka",
+      city: "Bangalore",
       zipcode: "560023",
+      state: "Karnataka",
       country: "India",
       date: "2019-03-09"
     },

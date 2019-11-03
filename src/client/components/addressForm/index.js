@@ -23,6 +23,7 @@ const AddressForm = ({
   address1,
   address2,
   state,
+  city,
   zipcode,
   country,
   date,
@@ -38,6 +39,7 @@ const AddressForm = ({
     address1: address1 || "",
     address2: address2 || "",
     state: state || "",
+    city: city || "",
     zipcode: zipcode || "",
     country: country || "",
     date: date || ""

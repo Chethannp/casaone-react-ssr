@@ -1,44 +1,3 @@
-// import React from "react";
-// import { connect } from "react-redux";
-// import AddressForm from "../../components/addressForm";
-
-// const ShippingDetails = ({ validateForm, shippingAddress }) => {
-//   const {
-//     firstname,
-//     lastname,
-//     address1,
-//     address2,
-//     state,
-//     zipcode,
-//     country,
-//     date
-//   } = shippingAddress;
-
-//   return (
-//     <AddressForm
-//       title="Shipping Address"
-//       dateText="Expected Delivery"
-//       firstName={firstname}
-//       lastName={lastname}
-//       address1={address1}
-//       address2={address2}
-//       state={state}
-//       // zipcode={zipcode}
-//       country={country}
-//       date={date}
-//       triggerValidation={validateForm}
-//     />
-//   );
-// };
-
-// const mapStateTopProps = state => {
-//   return {
-//     shippingAddress: state.cart.shippingAddress
-//   };
-// };
-
-// export default connect(mapStateTopProps)(ShippingDetails);
-
 import React from "react";
 import { connect } from "react-redux";
 import AddressForm from "../../components/addressForm";
@@ -59,8 +18,9 @@ const ShippingDetails = ({
     lastname,
     address1,
     address2,
-    state,
+    city,
     zipcode,
+    state,
     country,
     date
   } = shippingAddress;
@@ -81,8 +41,9 @@ const ShippingDetails = ({
       lastName={lastname}
       address1={address1}
       address2={address2}
-      state={state}
+      city={city}
       zipcode={zipcode}
+      state={state}
       country={country}
       date={date}
       form="Shipping Form"

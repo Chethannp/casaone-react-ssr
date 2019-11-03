@@ -17,8 +17,9 @@ const BillingDetails = ({
     lastname,
     address1,
     address2,
-    state,
+    city,
     zipcode,
+    state,
     country,
     date
   } = billingAddress;
@@ -39,8 +40,9 @@ const BillingDetails = ({
       lastName={lastname}
       address1={address1}
       address2={address2}
-      state={state}
+      city={city}
       zipcode={zipcode}
+      state={state}
       country={country}
       date={date}
       form="Billing Form"
