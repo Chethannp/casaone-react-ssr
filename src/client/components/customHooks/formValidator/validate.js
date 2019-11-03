@@ -5,10 +5,44 @@
  * Note:- This is a reusable component for form validations
  */
 
+// productId, productName, productQty, productPrice, (productNotes = "");
+
 export default function validate(values) {
   const errors = {};
 
   switch (true) {
+    case values.productId != undefined &&
+      (values.productId.length == 0 || values.productId.length <= 5):
+      errors.productId = "Invalid Product Id";
+      break;
+
+    case values.productId != undefined && isNaN(values.productId):
+      errors.productId = "In digits please!";
+      break;
+
+    case values.productName != undefined &&
+      (values.productName || values.productName.length == 0):
+      errors.productName = "Name is required";
+      break;
+
+    case values.productQty != undefined &&
+      (values.productQty.length == 0 || values.productId.length <= 1):
+      errors.productQty = "Quantity is required";
+      break;
+
+    case values.productQty != undefined && isNaN(values.productQty):
+      errors.productQty = "In digits please!";
+      break;
+
+    case values.productPrice != undefined &&
+      (values.productPrice.length == 0 || values.productPrice.length <= 1):
+      errors.productPrice = "Product price is required";
+      break;
+
+    case values.productPrice != undefined && isNaN(values.productPrice):
+      errors.productPrice = "In digits please!";
+      break;
+
     case values.firstName != undefined &&
       (values.firstName || values.firstName.length == 0):
       errors.firstName = "First name is required";

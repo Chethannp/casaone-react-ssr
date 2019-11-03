@@ -83,12 +83,9 @@ export default (req, res, next, store) => {
                   input[type='submit'] {
                       -webkit-border-radius: 0px;
                   }
-                  input,
-                  textarea {
-                      &:focus,
-                      &:active {
-                          outline: none;
-                      }
+                  input, input:focus,
+                  textarea,textarea:active, button:focus {
+                    outline: none;
                   }
                   html {
                       scroll-behavior: smooth;

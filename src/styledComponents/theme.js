@@ -13,7 +13,9 @@ const theme = {
 
     //Standard Colors
     black: "rgba(0, 0, 0, 1)", //#000000
-    white: "rgba(255, 255, 255, 1)" //#ffffff
+    white: "rgba(255, 255, 255, 1)", //#ffffff
+    danger: "red",
+    light: "#5382bd "
   },
 
   // Font Weight

@@ -165,4 +165,17 @@ const FlexBox = styled(Div)`
   }};
 `;
 
-export { Container, Row, Column, Div, FlexBox };
+const Button = styled.button`
+  background-color: ${props => props.theme.colors[props.bg]};
+  border: 1px solid ${props => props.theme.colors[props.bg]};
+  color: #fff;
+  text-transform: uppercase;
+  border-radius: 3px !important;
+  padding: 5px 8px;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.30196078431372547);
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+`;
+
+export { Container, Row, Column, Div, FlexBox, Button };

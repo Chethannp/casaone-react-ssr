@@ -6,3 +6,4 @@ export const INITIALIZE_PRODUCT_FORM_VALIDATION =
   "Initialize_Product_Form_Validation";
 export const VALIDATION_SUCCESS = "Validation_Success";
 export const VALIDATION_FAILURE = "Validation_Failure";
+export const UPDATE_PRODUCT_LIST_DATA = "Update_Product_List_Data";

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import {
@@ -6,22 +6,41 @@ import {
   initializeValidation
 } from "../../../actions/cart/cart.actions";
 
-import { Container, FlexBox } from "../../../styledComponents/layout";
+import { Container, FlexBox, Button } from "../../../styledComponents/layout";
 
 import BillingDetails from "../Billing";
 import ShippingDetails from "../Shipping";
+import Products from "../Products";
 
-const HomePage = ({ initializeValidation }) => {
+const HomePage = ({
+  initializeValidation,
+  validationComplete,
+  finalFormData
+}) => {
+  //Finally the expected out gets printed on to the console :)
+  useEffect(() => {
+    if (validationComplete) {
+      console.log(finalFormData);
+    }
+  }, [validationComplete]);
+
   const handleSave = () => {
     initializeValidation();
   };
-
   return (
     <Container>
-      <FlexBox bg="white" mar20 boxShadow="lightGrey" borderRadius>
+      <FlexBox bg="white" marT20 marB30 boxShadow="lightGrey" borderRadius>
         <BillingDetails />
         <ShippingDetails />
-        <button onClick={handleSave}>Save</button>
+      </FlexBox>
+
+      <FlexBox bg="white" pad20 boxShadow="lightGrey" borderRadius>
+        <Products />
+      </FlexBox>
+      <FlexBox pad20 bg="white" Z boxShadow="lightGrey" jcEnd>
+        <Button bg="light" onClick={handleSave}>
+          Save
+        </Button>
       </FlexBox>
     </Container>
   );
@@ -29,7 +48,9 @@ const HomePage = ({ initializeValidation }) => {
 
 function mapStateToProps(state) {
   return {
-    cart: state.cart.list
+    cart: state.cart.list,
+    validationComplete: state.cart.validationComplete,
+    finalFormData: state.cart.formData
   };
 }
 

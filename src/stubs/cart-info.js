@@ -22,6 +22,21 @@ module.exports = [
       country: "India",
       date: "2019-03-09"
     },
-    products: [{}, {}]
+    products: [
+      {
+        productId: 123456,
+        productName: "Sofa",
+        productQty: 2,
+        productPrice: 500,
+        productNotes: "A must need"
+      },
+      {
+        productId: 784456,
+        productName: "Tables",
+        // productQty: 2,
+        productPrice: 6000,
+        productNotes: ""
+      }
+    ]
   }
 ];

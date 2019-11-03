@@ -5,7 +5,8 @@ import {
   INITIALIZE_SHIPPING_FORM_VALIDATION,
   INITIALIZE_PRODUCT_FORM_VALIDATION,
   VALIDATION_SUCCESS,
-  VALIDATION_FAILURE
+  VALIDATION_FAILURE,
+  UPDATE_PRODUCT_LIST_DATA
 } from "../types";
 
 export const fetchCartDetails = () => async dispatch => {
@@ -36,8 +37,7 @@ export const proceedToNextStep = (currentForm, data) => dispatch => {
     });
   } else {
     dispatch({
-      type: VALIDATION_SUCCESS,
-      payload: data
+      type: VALIDATION_SUCCESS
     });
   }
 };
@@ -46,5 +46,14 @@ export const valiationFailedWithErrors = () => dispatch => {
   dispatch({
     type: VALIDATION_FAILURE,
     payload: true
+  });
+};
+
+export const updateProductListData = data => (dispatch, getState) => {
+  let oldData = getState().cart.tmpProductListData || [];
+  let newData = [...oldData, data];
+  dispatch({
+    type: UPDATE_PRODUCT_LIST_DATA,
+    payload: newData
   });
 };

@@ -4,7 +4,8 @@ import {
   INITIALIZE_SHIPPING_FORM_VALIDATION,
   INITIALIZE_PRODUCT_FORM_VALIDATION,
   VALIDATION_SUCCESS,
-  VALIDATION_FAILURE
+  VALIDATION_FAILURE,
+  UPDATE_PRODUCT_LIST_DATA
 } from "../actions/types";
 
 export default (state = [], action) => {
@@ -16,7 +17,8 @@ export default (state = [], action) => {
     case INITIALIZE_BILLING_FORM_VALIDATION: {
       return {
         ...state,
-        validateForm1: true
+        validateForm1: true,
+        validationComplete: false
       };
     }
 
@@ -39,10 +41,25 @@ export default (state = [], action) => {
       };
     }
 
+    case UPDATE_PRODUCT_LIST_DATA: {
+      return {
+        ...state,
+        tmpProductListData: action.payload
+      };
+    }
+
     case VALIDATION_SUCCESS: {
       return {
         ...state,
-        ProductData: action.payload,
+        formData: {
+          ...state.formData,
+          ProductData: state.tmpProductListData
+        },
+        hasError: false,
+        validateForm1: false,
+        validateForm2: false,
+        validateForm3: false,
+        tmpProductListData: [],
         validationComplete: true
       };
     }
@@ -53,7 +70,8 @@ export default (state = [], action) => {
         hasError: action.payload,
         validateForm1: false,
         validateForm2: false,
-        validateForm3: false
+        validateForm3: false,
+        tmpProductListData: []
       };
     }
 
