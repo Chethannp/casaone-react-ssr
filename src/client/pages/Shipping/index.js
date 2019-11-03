@@ -51,7 +51,8 @@ const ShippingDetails = ({
   validateForm2,
   shippingAddress,
   valiationFailedWithErrors,
-  proceedNext
+  proceedNext,
+  orderDate
 }) => {
   const {
     firstname,
@@ -88,6 +89,7 @@ const ShippingDetails = ({
       triggerValidation={validateForm2}
       hasErrors={handleErrors}
       handleSuccess={handleValidationSuccess}
+      orderDate={orderDate}
     />
   );
 };
@@ -95,7 +97,8 @@ const ShippingDetails = ({
 const mapStateTopProps = state => {
   return {
     shippingAddress: state.cart.shippingAddress,
-    validateForm2: state.cart.validateForm2
+    validateForm2: state.cart.validateForm2,
+    orderDate: state.cart.billingAddress.date
   };
 };
 

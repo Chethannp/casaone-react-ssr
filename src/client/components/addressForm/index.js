@@ -26,6 +26,7 @@ const AddressForm = ({
   zipcode,
   country,
   date,
+  orderDate,
   form,
   triggerValidation,
   hasErrors,
@@ -150,17 +151,17 @@ const AddressForm = ({
             <FormGroup>
               <FormInput
                 autoComplete="off"
-                name="state"
+                name="city"
                 required
-                defaultValue={values.state}
+                defaultValue={values.city}
                 onChange={handleChange}
                 type="text"
               />
-              <FormLabel htmlFor="state">
-                <FormLabelName>State</FormLabelName>
+              <FormLabel htmlFor="city">
+                <FormLabelName>City</FormLabelName>
               </FormLabel>
             </FormGroup>
-            {errors.state && <FormInputError>{errors.state}</FormInputError>}
+            {errors.city && <FormInputError>{errors.city}</FormInputError>}
           </FormGroupSpacer>
 
           <FormGroupSpacer>
@@ -183,6 +184,23 @@ const AddressForm = ({
             {errors.zipcode && (
               <FormInputError>{errors.zipcode}</FormInputError>
             )}
+          </FormGroupSpacer>
+
+          <FormGroupSpacer>
+            <FormGroup>
+              <FormInput
+                autoComplete="off"
+                name="state"
+                required
+                defaultValue={values.state}
+                onChange={handleChange}
+                type="text"
+              />
+              <FormLabel htmlFor="state">
+                <FormLabelName>State</FormLabelName>
+              </FormLabel>
+            </FormGroup>
+            {errors.state && <FormInputError>{errors.state}</FormInputError>}
           </FormGroupSpacer>
 
           <FormGroupSpacer>
@@ -219,6 +237,7 @@ const AddressForm = ({
                 defaultValue={values.date}
                 onChange={handleChange}
                 type="date"
+                min={orderDate}
               />
               <FormLabel htmlFor="date">
                 <FormLabelName></FormLabelName>
@@ -226,8 +245,6 @@ const AddressForm = ({
             </FormGroup>
             {errors.date && <FormInputError>{errors.date}</FormInputError>}
           </FormGroupSpacer>
-
-          <button>Submit</button>
         </Form>
       </Div>
     </MultiFormWrapper>

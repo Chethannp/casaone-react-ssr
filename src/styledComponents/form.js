@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 const Form = styled.form`
   width: 85%;
@@ -31,13 +31,15 @@ const FormInput = styled.input`
   border: none;
   outline: none;
   &:focus + label span,
-  &:valid + label span {
+  &:valid + label span,
+  &:read-only + label span {
     transform: translateY(-100%);
     font-size: 12px;
     color: ${props => props.theme.colors.brandPrimary};
   }
   &:focus + label::after,
-  &:valid + label::after {
+  &:valid + label::after,
+  &:read-only + label::after {
     transform: translate(0);
   }
 `;
@@ -77,6 +79,36 @@ const FormInputError = styled.span`
   font-size: 12px;
 `;
 
+const AutoCompleteWrapper = styled.ul`
+  border: 1px solid #999;
+  border-top-width: 0;
+  list-style: none;
+  margin-top: 0;
+  max-height: 143px;
+  overflow-y: auto;
+  padding-left: 0;
+  position: absolute;
+  top: 40px;
+  width: 95%;
+  z-index: 999;
+  background: #fff;
+`;
+
+const AutoCompleteList = styled.li`
+  padding: 0.5rem;
+  ${props =>
+    props.isSelected &&
+    css`
+      background: ${props => props.theme.colors.brandPrimary};
+      color: #fff;
+    `}
+  &:hover {
+    background-color: ${props => props.theme.colors.brandPrimary};
+    color: #fff;
+    cursor: pointer;
+  }
+`;
+
 export {
   Form,
   MultiFormWrapper,
@@ -85,5 +117,7 @@ export {
   FormInput,
   FormLabel,
   FormLabelName,
-  FormInputError
+  FormInputError,
+  AutoCompleteWrapper,
+  AutoCompleteList
 };

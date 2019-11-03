@@ -8,7 +8,7 @@ module.exports = [
       state: "Karnataka",
       zipcode: "560023",
       country: "India",
-      date: "2019-02-27"
+      date: "2019-03-08"
     },
     shippingAddress: {
       firstname: "Chethan",
@@ -18,7 +18,7 @@ module.exports = [
       state: "Karnataka",
       zipcode: "560023",
       country: "India",
-      date: "2019-03-08"
+      date: "2019-03-09"
     },
     products: [{}, {}]
   }
