@@ -33,7 +33,7 @@ module.exports = [
       {
         productId: 784456,
         productName: "Tables",
-        // productQty: 2,
+        productQty: 2,
         productPrice: 6000,
         productNotes: ""
       }

@@ -15,7 +15,10 @@ import Products from "../Products";
 const HomePage = ({
   initializeValidation,
   validationComplete,
-  finalFormData
+  finalFormData,
+  isUnsavedListPresent = false,
+  productList = [],
+  fetchCartDetails
 }) => {
   //Finally the expected out gets printed on to the console :)
   useEffect(() => {
@@ -27,6 +30,11 @@ const HomePage = ({
   const handleSave = () => {
     initializeValidation();
   };
+
+  const fakeCall = () => {
+    fetchCartDetails();
+  };
+
   return (
     <Container>
       <FlexBox bg="white" marT20 marB30 boxShadow="lightGrey" borderRadius>
@@ -38,7 +46,11 @@ const HomePage = ({
         <Products />
       </FlexBox>
       <FlexBox pad20 bg="white" Z boxShadow="lightGrey" jcEnd>
-        <Button bg="light" onClick={handleSave}>
+        <Button
+          bg="light"
+          onClick={handleSave}
+          disabled={isUnsavedListPresent || productList.length === 0}
+        >
           Save
         </Button>
       </FlexBox>
@@ -50,7 +62,9 @@ function mapStateToProps(state) {
   return {
     cart: state.cart.list,
     validationComplete: state.cart.validationComplete,
-    finalFormData: state.cart.formData
+    finalFormData: state.cart.formData,
+    isUnsavedListPresent: state.cart.isUnsavedListPresent,
+    productList: state.cart.products
   };
 }
 

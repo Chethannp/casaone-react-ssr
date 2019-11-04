@@ -22,7 +22,14 @@ export default function validate(values, orderDate) {
 
     case values.productName != undefined &&
       (values.productName || values.productName.length == 0):
-      errors.productName = "Name is required";
+      errors.productName = "Product Name is required!";
+      break;
+
+    case RegExp(/[~`!@#$%\^&*()+=\-\[\]\\';,/{}|\\":<>\?]/g).test(
+      values.productName
+    ):
+      errors.productName =
+        "Special Characters are not allowed, Please use valid product names!";
       break;
 
     case values.productQty != undefined &&
@@ -34,8 +41,7 @@ export default function validate(values, orderDate) {
       errors.productQty = "In digits please!";
       break;
 
-    case values.productPrice != undefined &&
-      (values.productPrice.length == 0 || values.productPrice.length <= 1):
+    case values.productPrice != undefined && values.productPrice.length == 0:
       errors.productPrice = "Product price is required";
       break;
 
@@ -48,9 +54,21 @@ export default function validate(values, orderDate) {
       errors.firstName = "First name is required";
       break;
 
+    case RegExp(/[~`!@#$%\^&*()+=\-\[\]\\';,/{}|\\":<>\?]/g).test(
+      values.firstName
+    ):
+      errors.firstName = "Special Characters are not allowed!";
+      break;
+
     case values.lastName != undefined &&
       (values.lastName || values.lastName.length == 0):
       errors.lastName = "Last name is required";
+      break;
+
+    case RegExp(/[~`!@#$%\^&*()+=\-\[\]\\';,/{}|\\":<>\?]/g).test(
+      values.lastName
+    ):
+      errors.lastName = "Special Characters are not allowed!";
       break;
 
     case values.address1 != undefined &&
@@ -67,6 +85,10 @@ export default function validate(values, orderDate) {
       errors.city = "City is required";
       break;
 
+    case RegExp(/[~`!@#$%\^&*()+=\-\[\]\\';,/{}|\\":<>\?]/g).test(values.city):
+      errors.city = "Special Characters are not allowed!";
+      break;
+
     case values.zipcode != undefined &&
       (values.zipcode.length == 0 || values.zipcode.length <= 5):
       errors.zipcode = "Invalid Zipcode";
@@ -81,9 +103,19 @@ export default function validate(values, orderDate) {
       errors.state = "State is required";
       break;
 
+    case RegExp(/[~`!@#$%\^&*()+=\-\[\]\\';,/{}|\\":<>\?]/g).test(values.state):
+      errors.state = "Special Characters are not allowed!";
+      break;
+
     case values.country != undefined &&
       (values.country || values.country.length == 0):
       errors.country = "Country is required";
+      break;
+
+    case RegExp(/[~`!@#$%\^&*()+=\-\[\]\\';,/{}|\\":<>\?]/g).test(
+      values.country
+    ):
+      errors.country = "Special Characters are not allowed!";
       break;
 
     case values.date != undefined && (values.date || values.date.length == 0):

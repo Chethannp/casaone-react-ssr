@@ -176,6 +176,10 @@ const Button = styled.button`
   font-size: 13px;
   font-weight: bold;
   cursor: pointer;
+  &:disabled,
+  &[disabled] {
+    opacity: 0.1;
+  }
 `;
 
 export { Container, Row, Column, Div, FlexBox, Button };

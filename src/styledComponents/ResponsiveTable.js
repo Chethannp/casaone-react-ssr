@@ -8,6 +8,7 @@ const Table = styled.table`
   padding: 0;
   width: 100%;
   table-layout: fixed;
+  text-align: center;
 
   @media screen and (max-width: 767px) {
     border: 0;
@@ -32,7 +33,6 @@ const Tbody = styled.tbody``;
 const Th = styled.th`
   font-size: 0.85em;
   letter-spacing: 0.1em;
-  text-transform: uppercase;
   padding: 0.625em 0.625em 1.5em 0.625em;
   text-align: center;
   border-bottom: 1px solid #ddd;

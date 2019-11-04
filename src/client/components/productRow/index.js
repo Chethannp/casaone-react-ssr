@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Tr,
   Td,
@@ -18,7 +18,10 @@ const TableRow = ({
   productNotes = "",
   triggerValidation,
   hasErrors,
-  handleSuccess
+  handleSuccess,
+  deleteItem,
+  saveItem,
+  unsavedItem = false
 }) => {
   const formInputs = {
     productId: productId || "",
@@ -27,6 +30,8 @@ const TableRow = ({
     productPrice: productPrice || "",
     productNotes: productNotes || ""
   };
+
+  const [totalPrice, setTotalPrice] = useState(0);
 
   const { handleChange, handleSubmit, values, errors } = useForm(
     submit,
@@ -37,7 +42,6 @@ const TableRow = ({
   useEffect(() => {
     if (triggerValidation) {
       handleSubmit(event);
-    } else {
     }
   }, [triggerValidation]);
 
@@ -48,9 +52,38 @@ const TableRow = ({
 
   //Invokes the parent function to decide on the rendering component
   function submit() {
-    handleSuccess(values);
+    if (unsavedItem) {
+      saveItem(values);
+    } else {
+      handleSuccess(values);
+    }
   }
 
+  const handleDelete = id => {
+    deleteItem(id);
+  };
+
+  useEffect(() => {
+    let qty = isNaN(parseInt(values.productQty))
+      ? ""
+      : parseInt(values.productQty);
+    let unitPrice = isNaN(parseInt(values.productPrice))
+      ? ""
+      : parseInt(values.productPrice);
+
+    if (qty != "" && unitPrice != "") {
+      let total = qty * unitPrice;
+      setTotalPrice(total);
+    }
+  }, [values.productQty, values.productPrice]);
+
+  const alertUser = e => {
+    if (e.target.readOnly) {
+      alert(
+        "Sorry! already added products are read-only, edit mode will be coming soon shortly...! "
+      );
+    }
+  };
   return (
     <Tr>
       <Td scope="row" data-label="Product ID">
@@ -63,6 +96,8 @@ const TableRow = ({
           autoComplete="off"
           onChange={handleChange}
           type="text"
+          readOnly={!unsavedItem}
+          onClick={alertUser}
         />
         {errors.productId && (
           <TableInputError>{errors.productId}</TableInputError>
@@ -76,6 +111,8 @@ const TableRow = ({
           autoComplete="off"
           onChange={handleChange}
           type="text"
+          readOnly={!unsavedItem}
+          onClick={alertUser}
         />
         {errors.productName && (
           <TableInputError>{errors.productName}</TableInputError>
@@ -91,6 +128,8 @@ const TableRow = ({
           autoComplete="off"
           onChange={handleChange}
           type="text"
+          readOnly={!unsavedItem}
+          onClick={alertUser}
         />
         {errors.productQty && (
           <TableInputError>{errors.productQty}</TableInputError>
@@ -106,6 +145,8 @@ const TableRow = ({
           autoComplete="off"
           onChange={handleChange}
           type="text"
+          readOnly={!unsavedItem}
+          onClick={alertUser}
         />
         {errors.productPrice && (
           <TableInputError>{errors.productPrice}</TableInputError>
@@ -113,30 +154,36 @@ const TableRow = ({
       </Td>
 
       <Td scope="row" data-label="Total Price">
-        <TableInput
-          required
-          defaultValue={values.productQty * values.productPrice}
-          autoComplete="off"
-          onChange={handleChange}
-          type="text"
-          disabled
-        />
+        <TableInput value={totalPrice} type="text" disabled />
       </Td>
 
       <Td scope="row" data-label="Notes">
         <TableTextArea
+          name="productNotes"
           required
           defaultValue={values.productNotes}
           autoComplete="off"
           onChange={handleChange}
           type="text"
           noResize="true"
+          readOnly={!unsavedItem}
+          onClick={alertUser}
         ></TableTextArea>
       </Td>
       <Td scope="row" data-label="Action">
-        <Button bg="danger" onClick={handleSubmit}>
-          Delete
-        </Button>
+        {unsavedItem ? (
+          <Button bg="danger" onClick={handleSubmit}>
+            Add
+          </Button>
+        ) : (
+          <Button
+            disabled={unsavedItem ? true : false}
+            bg="danger"
+            onClick={() => handleDelete(productId)}
+          >
+            Delete
+          </Button>
+        )}
       </Td>
     </Tr>
   );

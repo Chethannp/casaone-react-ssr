@@ -5,13 +5,23 @@ import {
   INITIALIZE_PRODUCT_FORM_VALIDATION,
   VALIDATION_SUCCESS,
   VALIDATION_FAILURE,
-  UPDATE_PRODUCT_LIST_DATA
+  UPDATE_PRODUCT_LIST_DATA,
+  UPDATE_TMP_LIST_DATA,
+  ADD_NEW_LINE_ITEM
 } from "../actions/types";
 
 export default (state = [], action) => {
   switch (action.type) {
     case FETCH_CART_DETAILS: {
       return action.payload;
+    }
+
+    case ADD_NEW_LINE_ITEM: {
+      return {
+        ...state,
+        products: action.payload,
+        isUnsavedListPresent: true
+      };
     }
 
     case INITIALIZE_BILLING_FORM_VALIDATION: {
@@ -42,6 +52,14 @@ export default (state = [], action) => {
     }
 
     case UPDATE_PRODUCT_LIST_DATA: {
+      return {
+        ...state,
+        products: action.payload,
+        isUnsavedListPresent: false
+      };
+    }
+
+    case UPDATE_TMP_LIST_DATA: {
       return {
         ...state,
         tmpProductListData: action.payload

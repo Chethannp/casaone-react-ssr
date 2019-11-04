@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { FlexBox, Div, Button } from "../../../styledComponents/layout";
-import TableRow from "../../components/productView";
+import TableRow from "../../components/productRow";
 import {
   Table,
   Thead,
@@ -10,36 +10,56 @@ import {
   Tbody
 } from "../../../styledComponents/ResponsiveTable";
 import {
+  addNewProductLineItem,
+  saveNewProductItem,
   updateProductListData,
+  updateTmpListData,
   valiationFailedWithErrors,
   proceedToNextStep
 } from "../../../actions/cart/cart.actions";
 
 const Products = ({
-  ProductsList,
+  productList = [],
   validateForm3,
   proceedNext,
-  updateProductListData,
+  updateTmpListData,
   valiationFailedWithErrors,
-  tmpList = []
+  tmpList = [],
+  updateProductListData,
+  addNewProductLineItem,
+  saveNewProductItem
 }) => {
   useEffect(() => {
-    if (ProductsList.length === tmpList.length && validateForm3) {
+    if (productList.length === tmpList.length && validateForm3) {
       proceedNext();
     }
   }, [tmpList]);
 
   //
   const getRows = () => {
-    return ProductsList.map(product => (
-      <TableRow
-        key={product.productId}
-        {...product}
-        triggerValidation={validateForm3}
-        hasErrors={handleErrors}
-        handleSuccess={handleValidationSuccess}
-      />
-    ));
+    if (productList.length > 0) {
+      return productList.map((product, i) => (
+        <TableRow
+          key={product.uniqueId}
+          {...product}
+          triggerValidation={validateForm3}
+          hasErrors={handleErrors}
+          handleSuccess={handleValidationSuccess}
+          deleteItem={handleDeleteProductItem}
+          saveItem={handleSaveNewProductItem}
+        />
+      ));
+    } else {
+      return (
+        <tr>
+          <td colSpan="7">
+            <Div boxShadow="lightGrey" pad20 color="danger">
+              Please click on add product button to add items to the cart!
+            </Div>
+          </td>
+        </tr>
+      );
+    }
   };
 
   const handleErrors = () => {
@@ -47,12 +67,20 @@ const Products = ({
   };
 
   const handleValidationSuccess = data => {
-    updateProductListData(data);
+    updateTmpListData(data);
   };
 
-  const handleAddProduct = () => {};
+  const handleAddNewLineItem = () => {
+    addNewProductLineItem();
+  };
 
-  const handleDeleteProduct = () => {};
+  const handleDeleteProductItem = id => {
+    updateProductListData(id);
+  };
+
+  const handleSaveNewProductItem = data => {
+    saveNewProductItem(data);
+  };
 
   return (
     <Div>
@@ -70,8 +98,10 @@ const Products = ({
         </Thead>
         <Tbody>{getRows()}</Tbody>
       </Table>
-      <FlexBox marT20 jcSpaceBetween onClick={handleAddProduct}>
-        <Button bg="light">Add Product</Button>
+      <FlexBox marT20 jcSpaceBetween>
+        <Button bg="light" onClick={handleAddNewLineItem}>
+          Add Product
+        </Button>
       </FlexBox>
     </Div>
   );
@@ -80,7 +110,7 @@ const Products = ({
 const mapStateToProps = state => {
   return {
     tmpList: state.cart.tmpProductListData,
-    ProductsList: state.cart.products,
+    productList: state.cart.products,
     validateForm3: state.cart.validateForm3
   };
 };
@@ -88,7 +118,10 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   dispatch => ({
-    updateProductListData: data => dispatch(updateProductListData(data)),
+    addNewProductLineItem: () => dispatch(addNewProductLineItem()),
+    saveNewProductItem: data => dispatch(saveNewProductItem(data)),
+    updateTmpListData: data => dispatch(updateTmpListData(data)),
+    updateProductListData: id => dispatch(updateProductListData(id)),
     valiationFailedWithErrors: () => dispatch(valiationFailedWithErrors()),
     proceedNext: () => dispatch(proceedToNextStep())
   })
