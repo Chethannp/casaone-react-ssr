@@ -1,14 +1,34 @@
+/**
+ * React Imports
+ */
 import React from "react";
+import PropTypes from "prop-types";
+
+/**
+ * Redux and Thunk Imports
+ */
 import { connect } from "react-redux";
-import AddressForm from "../../components/addressForm";
 import {
   proceedToNextStep,
   valiationFailedWithErrors
 } from "../../../actions/cart/cart.actions";
 
+/**
+ * Custom Reusable Component Imports
+ */
+import AddressForm from "../../components/addressForm";
+
+/**
+ * @function BillingDetails - Function Component
+ * @param {billingAddress} array - contains an array of field input values
+ * @param {validateForm1} boolean - Redux state, specifies to initiate validation inside the component
+ * @param {valiationFailedWithErrors} callback - Dispatch action to redux and inform it to stop validation execution as the component has resulted in an error
+ * @param {proceedNext} callback - Dispatches an action to redux to proceed on to the next step in the validation process
+ * @return {component} - Billing Address form UI
+ */
 const BillingDetails = ({
-  validateForm1,
   billingAddress,
+  validateForm1,
   valiationFailedWithErrors,
   proceedNext
 }) => {
@@ -24,10 +44,12 @@ const BillingDetails = ({
     date
   } = billingAddress;
 
+  //Triggers when child component (Address Form) finds errors
   const handleErrors = () => {
     valiationFailedWithErrors();
   };
 
+  //Triggers when child component (Address Form) finds no errors
   const handleValidationSuccess = (form, data) => {
     proceedNext(form, data);
   };
@@ -68,3 +90,10 @@ export default connect(
       dispatch(proceedToNextStep(currentForm, data))
   })
 )(BillingDetails);
+
+BillingDetails.propTypes = {
+  billingAddress: PropTypes.object,
+  validateForm1: PropTypes.bool,
+  valiationFailedWithErrors: PropTypes.func,
+  proceedNext: PropTypes.func
+};

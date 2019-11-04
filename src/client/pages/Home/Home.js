@@ -1,24 +1,45 @@
+/**
+ * React Imports
+ */
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
+
+/**
+ * Redux and Thunk Imports
+ */
 import { connect } from "react-redux";
 import {
   fetchCartDetails,
   initializeValidation
 } from "../../../actions/cart/cart.actions";
 
+/**
+ * Styled Component Imports
+ */
 import { Container, FlexBox, Button } from "../../../styledComponents/layout";
 
+/**
+ * Other Components / Pages
+ */
 import BillingDetails from "../Billing";
 import ShippingDetails from "../Shipping";
 import Products from "../Products";
 
+/**
+ * @function HomePage - Functional Component
+ * @param {initializeValidation} callback - Triggers / Initiates step by step validation
+ * @param {validationComplete} callback - On Validation success, logs the out json to console
+ * @param {finalFormData} object - Contains the validated form object of the respective components (Billing, Shipping and Product)
+ * @param {isUnsavedListPresent} boolean - Need to disable save button
+ * @param {productList} param0 - Need to disable save button, User must not be able to Save, if the product list length is empty
+ * @returns {component}
+ */
 const HomePage = ({
   initializeValidation,
   validationComplete,
   finalFormData,
   isUnsavedListPresent = false,
-  productList = [],
-  fetchCartDetails
+  productList = []
 }) => {
   //Finally the expected out gets printed on to the console :)
   useEffect(() => {
@@ -27,12 +48,9 @@ const HomePage = ({
     }
   }, [validationComplete]);
 
+  //Initializes validation on all the children components
   const handleSave = () => {
     initializeValidation();
-  };
-
-  const fakeCall = () => {
-    fetchCartDetails();
   };
 
   return (
@@ -54,8 +72,6 @@ const HomePage = ({
           Save
         </Button>
       </FlexBox>
-      <br />
-      <br />
     </Container>
   );
 };
@@ -86,5 +102,9 @@ export default {
 };
 
 HomePage.propTypes = {
-  cart: PropTypes.array
+  initializeValidation: PropTypes.func,
+  validationComplete: PropTypes.bool,
+  finalFormData: PropTypes.object,
+  isUnsavedListPresent: PropTypes.bool,
+  productList: PropTypes.array
 };

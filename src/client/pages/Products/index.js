@@ -1,14 +1,13 @@
+/**
+ * React Imports
+ */
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+
+/**
+ * Redux and Thunk Imports
+ */
 import { connect } from "react-redux";
-import { FlexBox, Div, Button } from "../../../styledComponents/layout";
-import TableRow from "../../components/productRow";
-import {
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody
-} from "../../../styledComponents/ResponsiveTable";
 import {
   addNewProductLineItem,
   saveNewProductItem,
@@ -18,24 +17,50 @@ import {
   proceedToNextStep
 } from "../../../actions/cart/cart.actions";
 
+/**
+ * Styled Component Imports
+ */
+import { FlexBox, Div, Button } from "../../../styledComponents/layout";
+import TableRow from "../../components/productRow";
+import {
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody
+} from "../../../styledComponents/ResponsiveTable";
+
+/**
+ * @function Products
+ * @param {productList} array - Saved Product List
+ * @param {validateForm3} boolean - Redux state, specifies to initiate validation inside the component
+ * @param {valiationFailedWithErrors} callback - Dispatch action to redux and inform it to stop validation execution as the component has resulted in an error
+ * @param {proceedNext} callback - Dispatches an action to redux to proceed on to the next step in the validation process
+ * @param {tmpList} array - It is a copy of old and newly added product list, needed to check if the validation is completed on all the rows in the product view so that a success function can be triggered.
+ * @param {updateProductListData} callback - delete existing product
+ * @param {addNewProductLineItem} callback - Clicking on Add new product will create a new product line item with empty values.
+ * @param {updateTmpListData} callback -  Indicates validation success on the respective component
+ * @param {saveNewProductItem} callback - saves newly added product line item with data
+ */
 const Products = ({
   productList = [],
   validateForm3,
-  proceedNext,
-  updateTmpListData,
   valiationFailedWithErrors,
+  proceedNext,
   tmpList = [],
   updateProductListData,
+  updateTmpListData,
   addNewProductLineItem,
   saveNewProductItem
 }) => {
+  //Checks if the productList and tmpList lenght is matching to trigger next step in the validation process
   useEffect(() => {
     if (productList.length === tmpList.length && validateForm3) {
       proceedNext();
     }
   }, [tmpList]);
 
-  //
+  //Based on the product list length it either renders a component or a message view.
   const getRows = () => {
     if (productList.length > 0) {
       return productList.map((product, i) => (
@@ -62,22 +87,27 @@ const Products = ({
     }
   };
 
+  //Triggers when child component find validation errors
   const handleErrors = () => {
     valiationFailedWithErrors();
   };
 
+  //Triggers when child component does not find any validation erros
   const handleValidationSuccess = data => {
     updateTmpListData(data);
   };
 
+  //Clicking on Add Product button will create a new product line item
   const handleAddNewLineItem = () => {
     addNewProductLineItem();
   };
 
+  //Triggers when user tries to delete the existing/saved product list record
   const handleDeleteProductItem = id => {
     updateProductListData(id);
   };
 
+  //Triggers when user tries to add new product into the product list record
   const handleSaveNewProductItem = data => {
     saveNewProductItem(data);
   };
@@ -126,3 +156,15 @@ export default connect(
     proceedNext: () => dispatch(proceedToNextStep())
   })
 )(Products);
+
+Products.propTypes = {
+  productList: PropTypes.array,
+  validateForm3: PropTypes.bool,
+  proceedNext: PropTypes.func,
+  tmpList: PropTypes.array,
+  valiationFailedWithErrors: PropTypes.func,
+  updateProductListData: PropTypes.func,
+  updateTmpListData: PropTypes.func,
+  addNewProductLineItem: PropTypes.func,
+  saveNewProductItem: PropTypes.func
+};

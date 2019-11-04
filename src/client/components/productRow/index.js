@@ -1,5 +1,12 @@
+/**
+ * React Imports
+ */
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+
+/**
+ * Styled Component Imports
+ */
 import {
   Tr,
   Td,
@@ -8,6 +15,10 @@ import {
   TableInputError
 } from "../../../styledComponents/ResponsiveTable";
 import { Button } from "../../../styledComponents/layout";
+
+/**
+ * Custom Hook Imports
+ */
 import useForm from "../customHooks/formValidator/useForm";
 import validate from "../customHooks/formValidator/validate";
 
