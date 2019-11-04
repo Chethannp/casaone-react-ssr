@@ -13,15 +13,15 @@
   },
   "presets": [
     [
-      "@babel/preset-env",
-      {
-        "modules": false,
-        "targets": {
-          "esmodules": true,
-          "browsers": "> 0.25%, ie 11, not op_mini all, not dead",
-          "node": 8
-        }
-      }
+      "@babel/preset-env"
+      // {
+      //   "modules": false,
+      //   "targets": {
+      //     "esmodules": true,
+      //     "browsers": "> 0.25%, ie 11, not op_mini all, not dead",
+      //     "node": 8
+      //   }
+      // }
     ],
     "@babel/preset-react"
   ],

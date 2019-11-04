@@ -97,6 +97,9 @@ const TableTextArea = styled.textarea`
 const TableInputError = styled.span`
   color: red;
   font-size: 12px;
+  @media screen and (max-width: 767px) {
+    display: block;
+  }
 `;
 
 export {
