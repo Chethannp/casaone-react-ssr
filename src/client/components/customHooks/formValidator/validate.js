@@ -7,7 +7,7 @@
 
 // productId, productName, productQty, productPrice, (productNotes = "");
 
-export default function validate(values) {
+export default function validate(values, orderDate) {
   const errors = {};
 
   switch (true) {
@@ -88,6 +88,10 @@ export default function validate(values) {
 
     case values.date != undefined && (values.date || values.date.length == 0):
       errors.date = "Date is required";
+      break;
+
+    case orderDate && orderDate > values.date:
+      errors.date = "Delivery date cannot be less than the Ordered date";
       break;
 
     default:

@@ -46,6 +46,7 @@ const Tr = styled.tr`
   @media screen and (max-width: 767px) {
     display: block;
     margin-bottom: 0.625em;
+    background: whitesmoke;
   }
 `;
 

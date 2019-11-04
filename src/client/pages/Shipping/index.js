@@ -59,7 +59,9 @@ const mapStateTopProps = state => {
   return {
     shippingAddress: state.cart.shippingAddress,
     validateForm2: state.cart.validateForm2,
-    orderDate: state.cart.billingAddress.date
+    orderDate:
+      (state.cart.formData && state.cart.formData.BillingFormData.date) ||
+      state.cart.billingAddress.date
   };
 };
 

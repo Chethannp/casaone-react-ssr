@@ -7,7 +7,7 @@ import { useState, useEffect } from "react";
  * @param {formInputs} - Object => holds the initial form input values
  */
 
-const useForm = (callback, validate, formInputs) => {
+const useForm = (callback, validate, formInputs, orderDate) => {
   const [values, setValues] = useState(formInputs);
 
   // We would need a new state for errors
@@ -31,7 +31,7 @@ const useForm = (callback, validate, formInputs) => {
     event.preventDefault();
 
     // handle errors
-    setErrors(validate(values));
+    setErrors(validate(values, orderDate));
     setIsSubmitting(true);
   };
 
