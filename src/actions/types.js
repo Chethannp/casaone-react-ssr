@@ -10,3 +10,4 @@ export const ADD_NEW_LINE_ITEM = "Add_New_Line_Item";
 export const SAVE_NEW_PRODUCT = "Save_New_Product";
 export const UPDATE_TMP_LIST_DATA = "Update_Tmp_List_Data";
 export const UPDATE_PRODUCT_LIST_DATA = "Update_Product_List_Data";
+export const SHOW_CUSTOM_TOAST = "Show_Custom_Toast";

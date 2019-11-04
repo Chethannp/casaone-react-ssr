@@ -14,7 +14,8 @@ import {
   updateProductListData,
   updateTmpListData,
   valiationFailedWithErrors,
-  proceedToNextStep
+  proceedToNextStep,
+  showCustomToast
 } from "../../../actions/cart/cart.actions";
 
 /**
@@ -51,7 +52,8 @@ const Products = ({
   updateProductListData,
   updateTmpListData,
   addNewProductLineItem,
-  saveNewProductItem
+  saveNewProductItem,
+  showCustomToast
 }) => {
   //Checks if the productList and tmpList lenght is matching to trigger next step in the validation process
   useEffect(() => {
@@ -59,6 +61,10 @@ const Products = ({
       proceedNext();
     }
   }, [tmpList]);
+
+  const handleToast = message => {
+    showCustomToast(message);
+  };
 
   //Based on the product list length it either renders a component or a message view.
   const getRows = () => {
@@ -72,6 +78,7 @@ const Products = ({
           handleSuccess={handleValidationSuccess}
           deleteItem={handleDeleteProductItem}
           saveItem={handleSaveNewProductItem}
+          showToast={handleToast}
         />
       ));
     } else {
@@ -153,7 +160,8 @@ export default connect(
     updateTmpListData: data => dispatch(updateTmpListData(data)),
     updateProductListData: id => dispatch(updateProductListData(id)),
     valiationFailedWithErrors: () => dispatch(valiationFailedWithErrors()),
-    proceedNext: () => dispatch(proceedToNextStep())
+    proceedNext: () => dispatch(proceedToNextStep()),
+    showCustomToast: message => dispatch(showCustomToast(message))
   })
 )(Products);
 
@@ -166,5 +174,6 @@ Products.propTypes = {
   updateProductListData: PropTypes.func,
   updateTmpListData: PropTypes.func,
   addNewProductLineItem: PropTypes.func,
-  saveNewProductItem: PropTypes.func
+  saveNewProductItem: PropTypes.func,
+  showCustomToast: PropTypes.func
 };

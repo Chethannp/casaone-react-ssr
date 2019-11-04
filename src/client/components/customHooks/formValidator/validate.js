@@ -51,6 +51,10 @@ export default function validate(values, orderDate) {
       errors.productPrice = "In digits please!";
       break;
 
+    case RegExp(/^\s+$/).test(values.firstName):
+      errors.firstName = "First name cannot be an empty space";
+      break;
+
     case values.firstName != undefined &&
       (values.firstName || values.firstName.length == 0):
       errors.firstName = "First name is required";
@@ -60,6 +64,10 @@ export default function validate(values, orderDate) {
       values.firstName
     ):
       errors.firstName = "Special Characters are not allowed!";
+      break;
+
+    case RegExp(/^\s+$/).test(values.lastName):
+      errors.lastName = "Last name cannot be an empty space";
       break;
 
     case values.lastName != undefined &&

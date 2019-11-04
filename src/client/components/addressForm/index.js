@@ -123,7 +123,7 @@ const AddressForm = ({
       <Div fontSize="sm" fontWeight="bold" color="brandSecondary">
         {title}
       </Div>
-      <Div width="70%">
+      <Div width="80%">
         <Form onSubmit={handleSubmit} noValidate>
           <FormGroupSpacer>
             <FormGroup>

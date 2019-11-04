@@ -7,7 +7,8 @@ import {
   VALIDATION_FAILURE,
   UPDATE_PRODUCT_LIST_DATA,
   UPDATE_TMP_LIST_DATA,
-  ADD_NEW_LINE_ITEM
+  ADD_NEW_LINE_ITEM,
+  SHOW_CUSTOM_TOAST
 } from "../actions/types";
 
 export default (state = [], action) => {
@@ -90,6 +91,13 @@ export default (state = [], action) => {
         validateForm2: false,
         validateForm3: false,
         tmpProductListData: []
+      };
+    }
+
+    case SHOW_CUSTOM_TOAST: {
+      return {
+        ...state,
+        toastMessage: action.payload
       };
     }
 

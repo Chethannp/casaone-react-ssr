@@ -35,6 +35,7 @@ import validate from "../customHooks/formValidator/validate";
  * @param {deleteItem} Callback - custom action used to delete the existing / newly added product list
  * @param {saveItem} Callback - custom action to add new item to the existing product list.
  * @param {unsavedItem} boolean - to handle readonly option and show/hide delete and add button
+ * @param {showToast} Callback - to display a toast to the user
  * @returns {component}
  */
 
@@ -49,7 +50,8 @@ const TableRow = ({
   handleSuccess,
   deleteItem,
   saveItem,
-  unsavedItem = false
+  unsavedItem = false,
+  showToast
 }) => {
   //Need this additional constant to feed into the validator (validate.js)
   const formInputs = {
@@ -129,7 +131,7 @@ const TableRow = ({
   //Triggers when the user tries to click on the already add product list to edit it.
   const alertUser = e => {
     if (e.target.readOnly) {
-      alert(
+      showToast(
         "Sorry! already added products are read-only, edit mode will be coming soon shortly...! "
       );
     }
@@ -253,5 +255,6 @@ TableRow.propTypes = {
   handleSuccess: PropTypes.func,
   deleteItem: PropTypes.func,
   saveItem: PropTypes.func,
-  unsavedItem: PropTypes.bool
+  unsavedItem: PropTypes.bool,
+  showToast: PropTypes.func
 };

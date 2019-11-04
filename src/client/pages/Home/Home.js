@@ -16,7 +16,12 @@ import {
 /**
  * Styled Component Imports
  */
-import { Container, FlexBox, Button } from "../../../styledComponents/layout";
+import {
+  Container,
+  FlexBox,
+  FlexBoxMob,
+  Button
+} from "../../../styledComponents/layout";
 
 /**
  * Other Components / Pages
@@ -24,6 +29,7 @@ import { Container, FlexBox, Button } from "../../../styledComponents/layout";
 import BillingDetails from "../Billing";
 import ShippingDetails from "../Shipping";
 import Products from "../Products";
+import CustomToast from "../../components/toast";
 
 /**
  * @function HomePage - Functional Component
@@ -39,7 +45,8 @@ const HomePage = ({
   validationComplete,
   finalFormData,
   isUnsavedListPresent = false,
-  productList = []
+  productList = [],
+  toastMessage = ""
 }) => {
   //Finally the expected out gets printed on to the console :)
   useEffect(() => {
@@ -55,10 +62,11 @@ const HomePage = ({
 
   return (
     <Container>
-      <FlexBox bg="white" marT20 marB30 boxShadow="lightGrey" borderRadius>
+      <CustomToast toastMessage={toastMessage} />
+      <FlexBoxMob bg="white" marT20 marB30 boxShadow="lightGrey" borderRadius>
         <BillingDetails />
         <ShippingDetails />
-      </FlexBox>
+      </FlexBoxMob>
 
       <FlexBox bg="white" pad20 boxShadow="lightGrey" borderRadius>
         <Products />
@@ -82,7 +90,8 @@ function mapStateToProps(state) {
     validationComplete: state.cart.validationComplete,
     finalFormData: state.cart.formData,
     isUnsavedListPresent: state.cart.isUnsavedListPresent,
-    productList: state.cart.products
+    productList: state.cart.products,
+    toastMessage: state.cart.toastMessage
   };
 }
 

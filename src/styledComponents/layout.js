@@ -165,6 +165,12 @@ const FlexBox = styled(Div)`
   }};
 `;
 
+const FlexBoxMob = styled(FlexBox)`
+  @media screen and (max-width: 767px) {
+    flex-flow: column;
+  }
+`;
+
 const Button = styled.button`
   background-color: ${props => props.theme.colors[props.bg]};
   border: 1px solid ${props => props.theme.colors[props.bg]};
@@ -182,4 +188,4 @@ const Button = styled.button`
   }
 `;
 
-export { Container, Row, Column, Div, FlexBox, Button };
+export { Container, Row, Column, Div, FlexBox, FlexBoxMob, Button };

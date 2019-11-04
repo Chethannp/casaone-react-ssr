@@ -8,7 +8,8 @@ import {
   VALIDATION_FAILURE,
   UPDATE_PRODUCT_LIST_DATA,
   UPDATE_TMP_LIST_DATA,
-  ADD_NEW_LINE_ITEM
+  ADD_NEW_LINE_ITEM,
+  SHOW_CUSTOM_TOAST
 } from "../types";
 
 export const fetchCartDetails = () => async dispatch => {
@@ -46,6 +47,7 @@ export const proceedToNextStep = (currentForm, data) => dispatch => {
     dispatch({
       type: VALIDATION_SUCCESS
     });
+    dispatch(showCustomToast("Check the console for output!!!"));
   }
 };
 
@@ -54,6 +56,11 @@ export const valiationFailedWithErrors = () => dispatch => {
     type: VALIDATION_FAILURE,
     payload: true
   });
+  dispatch(
+    showCustomToast(
+      "Please fix the validation errors, and then try saving again!"
+    )
+  );
 };
 
 export const updateTmpListData = data => (dispatch, getState) => {
@@ -73,6 +80,7 @@ export const updateProductListData = id => (dispatch, getState) => {
     type: UPDATE_PRODUCT_LIST_DATA,
     payload: newData
   });
+  dispatch(showCustomToast("Product has been deleted!"));
 };
 
 export const addNewProductLineItem = () => (dispatch, getState) => {
@@ -90,6 +98,11 @@ export const addNewProductLineItem = () => (dispatch, getState) => {
     type: ADD_NEW_LINE_ITEM,
     payload: newData
   });
+  dispatch(
+    showCustomToast(
+      "Please add the required input field and click on add to save them!"
+    )
+  );
 };
 
 export const saveNewProductItem = data => (dispatch, getState) => {
@@ -111,5 +124,15 @@ export const saveNewProductItem = data => (dispatch, getState) => {
   dispatch({
     type: UPDATE_PRODUCT_LIST_DATA,
     payload: newData
+  });
+  dispatch(
+    showCustomToast("New Product has been successfully added to the record!")
+  );
+};
+
+export const showCustomToast = message => dispatch => {
+  dispatch({
+    type: SHOW_CUSTOM_TOAST,
+    payload: message
   });
 };
