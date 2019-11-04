@@ -31,7 +31,7 @@ const Thead = styled.thead`
 const Tbody = styled.tbody``;
 
 const Th = styled.th`
-  font-size: 0.85em;
+  font-size: 1rem;
   letter-spacing: 0.1em;
   padding: 0.625em 0.625em 1.5em 0.625em;
   text-align: center;

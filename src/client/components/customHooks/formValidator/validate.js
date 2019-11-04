@@ -5,8 +5,6 @@
  * Note:- This is a reusable component for form validations
  */
 
-// productId, productName, productQty, productPrice, (productNotes = "");
-
 export default function validate(values, orderDate) {
   const errors = {};
 
@@ -30,6 +28,10 @@ export default function validate(values, orderDate) {
     ):
       errors.productName =
         "Special Characters are not allowed, Please use valid product names!";
+      break;
+
+    case !RegExp(/^[a-zA-Z]*$/).test(values.productName):
+      errors.productName = "Please input a suitable product name!";
       break;
 
     case values.productQty != undefined &&

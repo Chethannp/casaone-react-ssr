@@ -1,8 +1,12 @@
+/**
+ * React Imports
+ */
 import React, { useEffect } from "react";
+import PropTypes from "prop-types";
 
-import useForm from "../customHooks/formValidator/useForm";
-import validate from "../customHooks/formValidator/validate";
-
+/**
+ * Styled Component Imports
+ */
 import {
   MultiFormWrapper,
   FormGroupSpacer,
@@ -14,6 +18,33 @@ import {
   FormInputError
 } from "../../../styledComponents/form";
 import { Div } from "../../../styledComponents/layout";
+
+/**
+ * Custom Hook Imports
+ */
+import useForm from "../customHooks/formValidator/useForm";
+import validate from "../customHooks/formValidator/validate";
+
+/**
+ * @function AddressForm - Functional Re-usable Component
+ * @param {title} string - Section Heading
+ * @param {dateText} string - Ordered Date / Expected Delivery Date
+ * @param {firstName} string - Form Input
+ * @param {lastName} string - Form Input
+ * @param {address1} string - Form Input
+ * @param {Address2} string - Form Input
+ * @param {state} string - Form Input
+ * @param {city} string - Form Input
+ * @param {zipcode} string - Form Input
+ * @param {country} string - Form Input
+ * @param {date} string - Form Input
+ * @param {orderDate} string - It is derived from ordered date. It is needed to check if ordered date is greater / lesser than the expected delivery date to through validation errors accordingly
+ * @param {form} string - Carries which form this component holds (Billing Address / Shipping Address)
+ * @param {triggerValidation} boolean - Initiates validation inside this component
+ * @param {hasErrors} Callback - Triggers the parent function to let redux know that there is a validation error so that it can stop validation execution
+ * @param {handleSuccess} Callback - Triggers the parent function to let redux know that validation on this component is successfull and it can proceed with the rest.
+ * @returns  {component}
+ */
 
 const AddressForm = ({
   title,
@@ -33,6 +64,7 @@ const AddressForm = ({
   hasErrors,
   handleSuccess
 }) => {
+  //Need this additional constant to feed into the validator (validate.js)
   const formInputs = {
     firstName: firstName || "",
     lastName: lastName || "",
@@ -45,6 +77,17 @@ const AddressForm = ({
     date: date || ""
   };
 
+  /**
+   * @CustomHook  UseForm
+   * @constant {handleChange} - Function => holds the value of a particular input when an onChange event triggers
+   * @constant {handleSubmit} - Function => validates form input errors
+   * @constant {values} - Object => holds validated form input values
+   * @constant {errors} - Object => holds errors specific to inputs
+   * @param {submit} - Callback reference
+   * @param {validate} - It is a function which validates form inputs
+   * @param {formInputs} - It is an object which holds the values of form inputs
+   * @returns {Component}
+   */
   const { handleChange, handleSubmit, values, errors } = useForm(
     submit,
     validate,
@@ -52,6 +95,9 @@ const AddressForm = ({
     orderDate
   );
 
+  //Since I have implemented a step by step authentication process
+  //triggervalidation is a boolean from the parent element
+  //which informs the child to validate the fields once a specific step is reached.
   useEffect(() => {
     if (triggerValidation) {
       handleSubmit(event);
@@ -59,12 +105,15 @@ const AddressForm = ({
     }
   }, [triggerValidation]);
 
+  //Listen to errors key from useForm and trigger a has error parent function
+  //to stop step by step validation.
   useEffect(() => {
     if (Object.keys(errors).length === 0) return;
     hasErrors();
   }, [errors]);
 
-  //Invokes the parent function to decide on the rendering component
+  //Once the form is validated and free from errors this function executes and
+  //Invokes the parent to take the further step in validation process
   function submit() {
     handleSuccess(form, values);
   }
@@ -255,3 +304,22 @@ const AddressForm = ({
 };
 
 export default AddressForm;
+
+AddressForm.propTypes = {
+  title: PropTypes.string,
+  dateText: PropTypes.string,
+  firstName: PropTypes.string,
+  lastName: PropTypes.string,
+  address1: PropTypes.string,
+  address2: PropTypes.string,
+  state: PropTypes.string,
+  city: PropTypes.string,
+  zipcode: PropTypes.string,
+  country: PropTypes.string,
+  date: PropTypes.string,
+  orderDate: PropTypes.string,
+  form: PropTypes.string,
+  triggerValidation: PropTypes.bool,
+  hasErrors: PropTypes.func,
+  handleSuccess: PropTypes.func
+};

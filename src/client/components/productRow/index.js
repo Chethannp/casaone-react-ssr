@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import PropTypes from "prop-types";
 import {
   Tr,
   Td,
@@ -9,6 +10,22 @@ import {
 import { Button } from "../../../styledComponents/layout";
 import useForm from "../customHooks/formValidator/useForm";
 import validate from "../customHooks/formValidator/validate";
+
+/**
+ * @function TableRow - Functional Re-usable Component
+ * @param {productId} number - product id
+ * @param {productName} string - product name
+ * @param {productQty} number - product quantity
+ * @param {productPrice} number - product price
+ * @param {productNotes} string - product string
+ * @param {triggerValidation} boolean - Initiates validation inside this component
+ * @param {hasErrors} Callback - Triggers the parent function to let redux know that there is a validation error so that it can stop validation execution
+ * @param {handleSuccess} Callback - Triggers the parent function to let redux know that validation on this component is successfull and it can proceed with the rest.
+ * @param {deleteItem} Callback - custom action used to delete the existing / newly added product list
+ * @param {saveItem} Callback - custom action to add new item to the existing product list.
+ * @param {unsavedItem} boolean - to handle readonly option and show/hide delete and add button
+ * @returns {component}
+ */
 
 const TableRow = ({
   productId,
@@ -23,6 +40,7 @@ const TableRow = ({
   saveItem,
   unsavedItem = false
 }) => {
+  //Need this additional constant to feed into the validator (validate.js)
   const formInputs = {
     productId: productId || "",
     productName: productName || "",
@@ -31,26 +49,44 @@ const TableRow = ({
     productNotes: productNotes || ""
   };
 
+  //Local state used to store/set totalPrice value
   const [totalPrice, setTotalPrice] = useState(0);
 
+  /**
+   * @CustomHook  UseForm
+   * @constant {handleChange} - Function => holds the value of a particular input when an onChange event triggers
+   * @constant {handleSubmit} - Function => validates form input errors
+   * @constant {values} - Object => holds validated form input values
+   * @constant {errors} - Object => holds errors specific to inputs
+   * @param {submit} - Callback reference
+   * @param {validate} - It is a function which validates form inputs
+   * @param {formInputs} - It is an object which holds the values of form inputs
+   * @returns {Component}
+   */
   const { handleChange, handleSubmit, values, errors } = useForm(
     submit,
     validate,
     formInputs
   );
 
+  //Since I have implemented a step by step authentication process
+  //triggervalidation is a boolean from the parent element
+  //which informs the child to validate the fields once a specific step is reached.
   useEffect(() => {
     if (triggerValidation) {
       handleSubmit(event);
     }
   }, [triggerValidation]);
 
+  //Listen to errors key from useForm and trigger a has error parent function
+  //to stop step by step validation.
   useEffect(() => {
     if (Object.keys(errors).length === 0) return;
     hasErrors();
   }, [errors]);
 
-  //Invokes the parent function to decide on the rendering component
+  //Once the form is validated and free from errors this function executes and
+  //Invokes the parent to take the further step in validation process
   function submit() {
     if (unsavedItem) {
       saveItem(values);
@@ -59,10 +95,12 @@ const TableRow = ({
     }
   }
 
+  //Invokes parent function to delete the exisiting product list
   const handleDelete = id => {
     deleteItem(id);
   };
 
+  //Calculates the total price value by verifying if the input is not a junk value
   useEffect(() => {
     let qty = isNaN(parseInt(values.productQty))
       ? ""
@@ -77,6 +115,7 @@ const TableRow = ({
     }
   }, [values.productQty, values.productPrice]);
 
+  //Triggers when the user tries to click on the already add product list to edit it.
   const alertUser = e => {
     if (e.target.readOnly) {
       alert(
@@ -84,6 +123,7 @@ const TableRow = ({
       );
     }
   };
+
   return (
     <Tr>
       <Td scope="row" data-label="Product ID">
@@ -190,3 +230,17 @@ const TableRow = ({
 };
 
 export default TableRow;
+
+TableRow.propTypes = {
+  productId: PropTypes.number,
+  productName: PropTypes.string,
+  productQty: PropTypes.number,
+  productPrice: PropTypes.number,
+  productNotes: PropTypes.string,
+  triggerValidation: PropTypes.bool,
+  hasErrors: PropTypes.func,
+  handleSuccess: PropTypes.func,
+  deleteItem: PropTypes.func,
+  saveItem: PropTypes.func,
+  unsavedItem: PropTypes.bool
+};
